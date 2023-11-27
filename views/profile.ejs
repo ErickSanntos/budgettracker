@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="public/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="page-header text-center">
+        <h1><span class="fa fa-money"></span> Expense Tracker</h1>
+    </div>
+    <div class="row">
+        <!-- EXPENSE LIST -->
+        <h3>Monthly Expenses</h3>
+        <ul class="expenses">
+            <% for(var i = 0; i < expenses.length; i++) { %>
+                <li class="expense" data-expense-id="<%= expenses[i]._id %>">
+                    <span><strong>Category:</strong> <%= expenses[i].category %></span>
+                    <span><strong>Amount:</strong> $<%= expenses[i].amount %></span>
+                    <span class="delete-expense"><i class="fa fa-trash" aria-hidden="true" data-expense-id="<%= expenses[i]._id %>"></i></span>
+                </li>
+            <% } %>
+        </ul>
+            <!-- Add Expense form -->
+            <h2>Add an Expense</h2>
+            <form action="/addExpense" method="POST">
+                <input type="text" placeholder="Category" name="category">
+                <input type="number" placeholder="Amount" name="amount" step="0.01">
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+        <!-- Monthly Status -->
+        <div class="col-sm-6">
+          <h3>Monthly Status</h3>
+          <p>Total Expenses: $<span id="totalExpenses"><%= totalExpenses %></span></p>
+          <p>Remaining Budget: $<span id="remainingBudget"><%= remainingBudget %></span></p>
+      
+          <!-- Add Budget Edit form -->
+          <h2>Edit Starting Budget</h2>
+          <form action="/editBudget" method="POST">
+              <input type="number" placeholder="New Starting Budget" name="newBudget" step="0.01">
+              <button type="submit">Update Budget</button>
+          </form>
+      </div>
+    </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
